@@ -7,4 +7,5 @@ mkdir ${NEW_YEAR}
 mkdir -p ${NEW_YEAR}/scripts
 mkdir -p ${NEW_YEAR}/inputs
 
+touch ${NEW_YEAR}/scripts/.nothing
 touch ${NEW_YEAR}/inputs/.nothing
