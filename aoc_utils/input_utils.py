@@ -31,7 +31,7 @@ def read_input(
         input_path = calling_file_year / f"inputs/{calling_file_name}.txt"
 
     with open(input_path) as input_file:
-        input_data = input_file.readlines()
+        input_data = input_file.read().splitlines()
 
     if one_line:
         input_data = input_data[0] if not separator else input_data[0].split(separator)
