@@ -41,4 +41,12 @@ def get_min_location(almanac_data: dict) -> int:
             min_location = value_to_transform
     return min_location
 
+
+def part2(almanac_data: dict):
+    seed_ranges = list(zip(*[iter(almanac_data["seeds"])] * 2))
+    print(seed_ranges)
+
+
+
 print("P1", get_min_location(input_almanac_data))
+print("P2", part2(input_almanac_data))
