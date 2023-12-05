@@ -15,7 +15,8 @@ def read_input(
     np_dtype: Optional[np.dtype] = None,
     one_line: bool = False,
     separator: Optional[str] = ",",
-) -> list:
+    raw_input: bool = False,
+) -> list | str:
     if input_path is None:
         calling_file_path = Path(inspect.stack()[-1].filename)
         calling_file_name = calling_file_path.stem
@@ -31,7 +32,10 @@ def read_input(
         input_path = calling_file_year / f"inputs/{calling_file_name}.txt"
 
     with open(input_path) as input_file:
-        input_data = input_file.read().splitlines()
+        if raw_input:
+            input_data = input_file.read()
+        else:
+            input_data = input_file.read().splitlines()
 
     if one_line:
         input_data = input_data[0] if not separator else input_data[0].split(separator)
