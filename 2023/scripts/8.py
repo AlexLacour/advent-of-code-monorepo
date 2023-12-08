@@ -67,18 +67,18 @@ def get_number_of_steps_from_all_a_to_all_z(
     directions = directions.replace("L", "0")
     directions = directions.replace("R", "1")
 
-    current_nodes = np.array(starting_node_ids)
+    n_steps_collection = []
+    for starting_node_id in starting_node_ids:
+        n_steps = 0
+        current_node = starting_node_id
+        while current_node not in ending_node_ids:
+            direction_to_take = int(directions[n_steps % len(directions)])
 
-    n_steps = 0
-    while True:
-        if all(n in ending_node_ids for n in current_nodes):
-            break
-        direction_to_take = int(directions[n_steps % len(directions)])
+            current_node = nodes_np_graph[direction_to_take][current_node]
+            n_steps += 1
+        n_steps_collection.append(n_steps)
 
-        current_nodes = nodes_np_graph[direction_to_take][current_nodes]
-        n_steps += 1
-
-    return n_steps
+    return n_steps_collection
 
 
 # print("P1", get_number_of_steps_from_aaa_to_zzz(input_directions, input_nodes))
