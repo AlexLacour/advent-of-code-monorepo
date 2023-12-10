@@ -47,7 +47,7 @@ for valid_candidate in candidates:
         loop_positions.append(valid_candidate)
 
 last_position = starting_position
-position = list(loop_positions)[-1]  # NOTE either 1 or -1, can somehow change things
+position = loop_positions[-1]  # NOTE either 1 or -1, can somehow change things
 
 while position != starting_position:
     position_value_str = input_pipes[position]
@@ -63,9 +63,9 @@ while position != starting_position:
     loop_positions.append(position)
 
 
-print("P1", len(loop_positions) // 2)
+print("P1", len(set(loop_positions)) // 2)
 
-loop = Path(list(loop_positions), closed=True)
+loop = Path(loop_positions, closed=True)
 filled_in = 0
 for point_value in (it := np.nditer(input_pipes, flags=["multi_index"])):
     point_coords = it.multi_index
