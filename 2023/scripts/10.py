@@ -3,8 +3,6 @@ from matplotlib.path import Path
 
 from aoc_utils import read_input
 
-# PIPE_TO_INT = [c for c in ".|-LJ7FS"]
-
 PIPE_DIRECTION = {
     ".": [],
     "|": [[-1, 0], [1, 0]],  # up down
