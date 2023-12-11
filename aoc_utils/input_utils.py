@@ -16,7 +16,7 @@ def read_input(
     one_line: bool = False,
     separator: Optional[str] = ",",
     raw_input: bool = False,
-) -> list | str:
+) -> list | str | np.ndarray:
     if input_path is None:
         calling_file_path = Path(inspect.stack()[-1].filename)
         calling_file_name = calling_file_path.stem
