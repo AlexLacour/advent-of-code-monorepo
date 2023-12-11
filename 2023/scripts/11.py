@@ -73,12 +73,14 @@ def get_galaxies_distances_sum(
 
     galaxy_pairs = list(combinations(galaxies_coordinates_to_id, 2))
 
-    distances_sum = 0
-    for first_galaxy, second_galaxy in galaxy_pairs:
-        distances_sum += distances[
+    distances_sum = sum(
+        distances[
             galaxies_coordinates_to_id[first_galaxy],
             galaxies_coordinates_to_id[second_galaxy],
         ]
+        for first_galaxy, second_galaxy in galaxy_pairs
+    )
+
     return int(distances_sum)
 
 
