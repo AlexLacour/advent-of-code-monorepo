@@ -15,37 +15,21 @@ input_condition_records = read_input(as_type=parse_line)
 
 for condition_record in input_condition_records:
     springs_states, contiguous_damaged_lens = condition_record
-
-    mandatory_functional_indexes = set()
-    for contiguous_damaged_len in contiguous_damaged_lens:
-        candidates = list(
-            re.finditer(
-                r"(?<=\?)\#{" + str(contiguous_damaged_len) + r"}(?=\?|$|\.)", springs_states
-            )
-        )
-        if candidates:
-            damaged_span = candidates[0].span()
-            if damaged_span[0] - 1 >= 0:
-                mandatory_functional_indexes.add(damaged_span[0] - 1)
-            if damaged_span[-1] <= len(springs_states):
-                mandatory_functional_indexes.add(damaged_span[-1])
     
-    print(springs_states, mandatory_functional_indexes)
+    number_of_damaged_to_put = sum(contiguous_damaged_lens) - Counter(springs_states)["#"]
 
-    unknown_ids = {match.start(): True for match in re.finditer("\?", springs_states)}
+    number_of_unknown_points = len([match.start() for match in re.finditer("\?", springs_states)])
 
-    unknown_and_damaged_groups = [group for group in springs_states.split(".") if group]
-    number_of_splits_to_create = len(contiguous_damaged_lens) - len(
-        unknown_and_damaged_groups
-    )
+    # number of sure cases
+    number_of_sure_points = 0
+    number_of_associated_damaged = 0
 
-    initial_states_counter = Counter(springs_states)
-    number_of_damaged_to_put = (
-        sum(contiguous_damaged_lens) - initial_states_counter["#"]
-    )
+    for contiguous_damaged_len in contiguous_damaged_lens:
+        matches = list(re.finditer(r"[\?\#]{{{}}}".format(contiguous_damaged_len), springs_states))
+        print([match.group() for match in matches])
 
-    # Final computation
-    n_arrangements = math.comb(
-        len(unknown_ids) - (number_of_splits_to_create + len(mandatory_functional_indexes)), number_of_damaged_to_put
-    )
+    number_of_ambivalent_points = number_of_unknown_points - number_of_sure_points
+    number_of_damaged_remaining_to_put = number_of_damaged_to_put - number_of_associated_damaged
+    n_arrangements = math.comb(number_of_ambivalent_points, number_of_damaged_remaining_to_put)
+
     print(n_arrangements)
