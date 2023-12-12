@@ -19,7 +19,7 @@ def is_states_valid(states_str: str, contiguous_lens: list[int]) -> bool:
     base_regex = ""
     for val_id, value in enumerate(contiguous_lens):
         if val_id:
-            base_regex += "\.+"
+            base_regex += r"\.+"
         base_regex += r"\#{{{}}}".format(value)
 
     matches = list(re.findall(base_regex, states_str))
@@ -28,11 +28,12 @@ def is_states_valid(states_str: str, contiguous_lens: list[int]) -> bool:
     return False
 
 
-total_arrangements = 0
-for condition_record in input_condition_records:
+def get_number_of_arrangements(condition_record: tuple[str, list]) -> int:
     springs_states, contiguous_damaged_lens = condition_record
-    
-    number_of_damaged_to_put = sum(contiguous_damaged_lens) - Counter(springs_states)["#"]
+
+    number_of_damaged_to_put = (
+        sum(contiguous_damaged_lens) - Counter(springs_states)["#"]
+    )
 
     unknown_points = [match.start() for match in re.finditer("\?", springs_states)]
 
@@ -44,7 +45,13 @@ for condition_record in input_condition_records:
 
         if is_states_valid("".join(springs_states_list), contiguous_damaged_lens):
             n_arrangements += 1
-    total_arrangements += n_arrangements
+    return n_arrangements
 
 
-print("P1", total_arrangements)
+print(
+    "P1",
+    sum(
+        get_number_of_arrangements(condition_record)
+        for condition_record in input_condition_records
+    ),
+)
