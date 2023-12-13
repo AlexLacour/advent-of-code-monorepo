@@ -5,6 +5,11 @@ from itertools import combinations
 
 from aoc_utils import read_input
 
+""" NOTE
+- probably requires recursion / DYNAMIC PROGRAMMING
+- memoization / LRU CACHE can help
+"""
+
 
 def parse_line(record_line_str: str) -> tuple[str, list]:
     springs_states, contiguous_groups_len = record_line_str.split()
