@@ -120,9 +120,7 @@ print(
 print(
     "P2",
     max(
-        get_number_of_energized_tiles(
-            move_beam(input_tiles, *candidate)
-        )
+        get_number_of_energized_tiles(move_beam(input_tiles, *candidate))
         for _, candidate in enumerate(tqdm(get_candidates(input_tiles)))
     ),
 )
