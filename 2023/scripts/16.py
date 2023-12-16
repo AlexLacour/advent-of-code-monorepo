@@ -1,6 +1,7 @@
 from typing import Optional
 
 import numpy as np
+from tqdm import tqdm
 
 from aoc_utils import read_input
 
@@ -25,9 +26,6 @@ DIRECTION_UPDATES = {
         UP: LEFT,  # up to left
     },
 }
-
-
-ENERGY_MAP_CACHE = {}
 
 
 def move_beam(
@@ -89,7 +87,6 @@ def move_beam(
         ):
             break
 
-    ENERGY_MAP_CACHE[(beam_starting_position, beam_starting_direction)] = energy_map
     return energy_map
 
 
@@ -124,10 +121,8 @@ print(
     "P2",
     max(
         get_number_of_energized_tiles(
-            ENERGY_MAP_CACHE[candidate]
-            if candidate in ENERGY_MAP_CACHE
-            else move_beam(input_tiles, *candidate)
+            move_beam(input_tiles, *candidate)
         )
-        for candidate in get_candidates(input_tiles)
+        for _, candidate in enumerate(tqdm(get_candidates(input_tiles)))
     ),
 )
