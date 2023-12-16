@@ -1,5 +1,6 @@
 from typing import Optional
 
+import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
@@ -107,7 +108,7 @@ def get_candidates(tiles: np.ndarray) -> list[tuple]:
 print(
     "P1",
     get_number_of_energized_tiles(
-        move_beam(
+        energy_map:=move_beam(
             tiles=input_tiles,
             beam_starting_position=(0, 0),
             beam_starting_direction=RIGHT,
@@ -124,3 +125,7 @@ print(
         for _, candidate in enumerate(tqdm(get_candidates(input_tiles)))
     ),
 )
+
+# visualization
+plt.imshow(energy_map)
+plt.show()
