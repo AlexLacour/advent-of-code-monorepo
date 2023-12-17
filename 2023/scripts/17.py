@@ -12,31 +12,25 @@ DOWN = (1, 0)
 
 input_heat_grid = read_input(as_type=lambda x: list(map(int, x)), to_numpy=True)
 
-def run_dijkstra(heat_grid: np.ndarray, source: tuple[int, int]):
-    unvisited = {(line_id, col_id) for line_id, line in enumerate(heat_grid) for col_id, _ in enumerate(line)}
-    distances = {point: np.inf for point in unvisited}
-    distances[source] = heat_grid[source]
-    prev = {}
+def min_cost_path(heat_grid: np.ndarray, source: tuple, destination: tuple):
+    tc = np.zeros(heat_grid.shape)
+    tc[source] = heat_grid[source]
 
-    while unvisited:
-        current_node = min(list(unvisited), key=distances.get)
+    m, n = destination
 
-        neighbors = [tuple(np.asarray(current_node) + direction) for direction in [LEFT, RIGHT, UP, DOWN]]
-        neighbors = [n for n in neighbors if n in unvisited]
-
-        for neighbor_point in neighbors:
-            if (alt := distances[current_node] + heat_grid[neighbor_point]) < distances[neighbor_point]:
-                distances[neighbor_point] = alt
-                prev[neighbor_point] = current_node
-
-        unvisited.remove(current_node)
-
-    # to numpy
-    distances_np = np.zeros(heat_grid.shape)
-    for point, distance in distances.items():
-        distances_np[point] = distance
-    return distances_np, prev
+    for i in range(1, m+1):
+        tc[i][0] = tc[i-1][0] + heat_grid[i][0]
+ 
+    # Initialize first row of tc array
+    for j in range(1, n+1):
+        tc[0][j] = tc[0][j-1] + heat_grid[0][j]
+ 
+    # Construct rest of the tc array
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            tc[i][j] = min(tc[i-1][j-1], tc[i-1][j], tc[i][j-1]) + heat_grid[i][j]
+    return tc
 
 
-res, paths = run_dijkstra(input_heat_grid, (0, 0))
+res = min_cost_path(input_heat_grid, (0, 0))
 print(res)
