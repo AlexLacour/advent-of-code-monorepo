@@ -32,5 +32,6 @@ def min_cost_path(heat_grid: np.ndarray, source: tuple, destination: tuple):
     return tc
 
 
-res = min_cost_path(input_heat_grid, (0, 0))
+h, w = input_heat_grid.shape
+res = min_cost_path(input_heat_grid, (0, 0), (h-1, w-1))
 print(res)
