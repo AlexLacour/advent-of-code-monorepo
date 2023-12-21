@@ -122,15 +122,15 @@ for _ in range(n_button_push):
 print("P1", total_lows * total_highs)
 
 
-modules = get_modules(input_instructions)
-initial_state = get_state(modules)
-n_pushes = 0
-while True:
-    n_pushes += 1
-    ret = push_button(modules)
+# modules = get_modules(input_instructions)
+# initial_state = get_state(modules)
+# n_pushes = 0
+# while True:
+#     n_pushes += 1
+#     ret = push_button(modules)
 
-    if initial_state == get_state(modules):
-        break
+#     if initial_state == get_state(modules):
+#         break
 
-period = n_pushes
-print(period)
+# period = n_pushes
+# print(period)
