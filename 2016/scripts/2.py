@@ -20,7 +20,11 @@ KEYS_MAPPING = {
 
 code_instructions = read_input()
 
-first_panel = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+first_panel = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+])
 
 second_panel = np.array([
     [0, 0, 1, 0, 0],
@@ -33,6 +37,7 @@ second_panel = np.array([
 
 def get_code(instructions: list[str], panel: np.ndarray, starting_key: int = 5) -> str:
     code = ""
+
     position = list(zip(*np.where(panel == starting_key)))[0]
     key = starting_key
 
