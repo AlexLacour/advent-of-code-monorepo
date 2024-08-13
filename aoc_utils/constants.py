@@ -1,0 +1,1 @@
+ALPHABET: str = "abcdefghijklmnopqrstuvwxyz"
