@@ -27,5 +27,5 @@ for instruction in input_screen_instructions:
 print(f"{np.sum(screen, dtype=int)=}")
 
 for row in screen:
-    row_str = "".join(["\u2588" if val else " " for val in row])
+    row_str = "".join(["\u2588" * 2 if val else " " * 2 for val in row])
     print(row_str)
