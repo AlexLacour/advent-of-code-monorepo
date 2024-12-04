@@ -1,13 +1,13 @@
 import numpy as np
 
 from aoc_utils import read_input
-from aoc_utils.enums.directions import NPArrayDirections
+from aoc_utils.enums.directions import NPArray4Directions
 
 DIRECTIONS_MAPPING = {
-    "U": NPArrayDirections.UP,
-    "D": NPArrayDirections.DOWN,
-    "L": NPArrayDirections.LEFT,
-    "R": NPArrayDirections.RIGHT
+    "U": NPArray4Directions.UP,
+    "D": NPArray4Directions.DOWN,
+    "L": NPArray4Directions.LEFT,
+    "R": NPArray4Directions.RIGHT
 }
 
 KEYS_MAPPING = {
