@@ -37,11 +37,11 @@ def read_input(
         else:
             input_data = input_file.read().splitlines()
 
-    if one_line:
-        input_data = input_data[0] if not separator else input_data[0].split(separator)
-
     if as_type:
         input_data = list(map(as_type, input_data))
+
+    if one_line:
+        input_data = input_data[0] if not separator else input_data[0].split(separator)
 
     if to_numpy:
         input_data = np.asarray(input_data, dtype=np_dtype)
