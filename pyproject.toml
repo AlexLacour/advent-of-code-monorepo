@@ -15,6 +15,7 @@ scipy = "^1.11.4"
 matplotlib = "^3.8.2"
 tqdm = "^4.66.1"
 shapely = "^2.0.2"
+scikit-image = "^0.24.0"
 
 [build-system]
 requires = ["poetry-core"]
