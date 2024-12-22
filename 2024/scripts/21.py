@@ -73,8 +73,6 @@ for code in input_keypad_codes:
         for robot_id in range(num_direction_robots):
             new_pressed_keys = []
             for target in pressed_keys:
-                args = (target, direction_robots_positions[robot_id], "directional")
-
                 keys_needed_to_move = get_moves_to_target(
                     target,
                     direction_robots_positions[robot_id],
