@@ -3,7 +3,7 @@
 import inspect
 import sys
 from pathlib import Path
-from typing import Callable, Optional, Sequence
+from typing import Callable, Optional, Sequence, Any
 
 import numpy as np
 
@@ -16,7 +16,7 @@ def read_input(
     one_line: bool = False,
     separator: Optional[str] = ",",
     raw_input: bool = False,
-) ->  Sequence:
+) ->  Sequence | np.ndarray | str:
     if input_path is None:
         calling_file_path = Path(inspect.stack()[-1].filename)
         calling_file_name = calling_file_path.stem
