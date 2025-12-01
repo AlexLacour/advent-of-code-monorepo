@@ -39,18 +39,22 @@ for event_date, event in input_events:
         asleep_time = event_date.minute
     elif event == "0":
         asleep = False
-        shift_data[asleep_time:event_date.minute] = 1
+        shift_data[asleep_time : event_date.minute] = 1
 else:
     full_shift_historic[current_guard].append(shift_data)
 
 
-most_sleepy_guard = max(full_shift_historic, key=lambda x: np.sum(full_shift_historic[x]))
+most_sleepy_guard = max(
+    full_shift_historic, key=lambda x: np.sum(full_shift_historic[x])
+)
 best_minute = int(np.argmax(np.sum(full_shift_historic[most_sleepy_guard], axis=0)))
 
 res = int(most_sleepy_guard[1:]) * best_minute
 print(res)
 
-most_frequent_guard = max(full_shift_historic, key=lambda x: max(np.sum(full_shift_historic[x], axis=0)))
+most_frequent_guard = max(
+    full_shift_historic, key=lambda x: max(np.sum(full_shift_historic[x], axis=0))
+)
 best_minute = int(np.argmax(np.sum(full_shift_historic[most_frequent_guard], axis=0)))
 
 res = int(most_frequent_guard[1:]) * best_minute
