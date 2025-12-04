@@ -23,6 +23,7 @@ class NPArray4Directions:
     LEFT = np.array((0, -1))
     RIGHT = np.array((0, 1))
     
+    @staticmethod
     def to_list() -> list[np.ndarray]:
         return [
             NPArray4Directions.UP,
@@ -42,6 +43,7 @@ class NPArray8Directions:
     UPLEFT = np.array((-1, -1))
     DOWNLEFT = np.array((1, -1))
     
+    @staticmethod
     def to_list() -> list[np.ndarray]:
         return [
             NPArray8Directions.UP,
