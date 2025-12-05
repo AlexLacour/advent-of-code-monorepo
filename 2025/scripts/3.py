@@ -28,7 +28,7 @@ def get_total_joltage_output(batteries_bank: list[int], max_batteries: int = 2) 
     return max_joltage
 
 
-input_batteries_banks: list[list[int]] = read_input(as_type=parse_bank)  # type: ignore
+input_batteries_banks: list[list[int]] = read_input(as_type=parse_bank)
 total_output_2 = sum([get_total_joltage_output(bank) for bank in input_batteries_banks])
 total_output_12 = sum(
     [get_total_joltage_output(bank, 12) for bank in input_batteries_banks]

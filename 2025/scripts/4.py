@@ -2,7 +2,7 @@ import numpy as np
 from aoc_utils import read_input
 from aoc_utils.enums.directions import NPArray8Directions
 
-input_grid: np.ndarray = read_input(as_type=list, to_numpy=True)  # type: ignore
+input_grid: np.ndarray = read_input(as_type=list, to_numpy=True)
 
 # replace grid to num
 input_grid[input_grid == "@"] = 1

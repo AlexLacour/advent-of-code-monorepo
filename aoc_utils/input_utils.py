@@ -1,11 +1,45 @@
 """AOC INPUT UTILS"""
 
 import inspect
-import sys
 from pathlib import Path
-from typing import Callable, Optional, Sequence, Any
+from typing import Callable, Literal, Optional, Protocol, Sequence, Any, Type, TypeVar, overload
 
 import numpy as np
+
+
+# # type overloads
+@overload
+def read_input(
+    *,
+    raw_input: Literal[True],
+) -> str: ...
+
+
+@overload
+def read_input(
+    *,
+    as_type: ...,
+    to_numpy: Literal[True],
+) -> np.ndarray: ...
+
+
+T = TypeVar("T")
+
+@overload
+def read_input(
+    *,
+    as_type: Callable[..., T],
+    to_numpy: Literal[False] = ...,
+) -> list[T]: ...
+
+
+@overload
+def read_input(
+    *,
+    as_type: Callable[..., T],
+    one_line: Literal[True],
+    separator: ...
+) -> T: ...
 
 
 def read_input(
@@ -16,7 +50,7 @@ def read_input(
     one_line: bool = False,
     separator: Optional[str] = ",",
     raw_input: bool = False,
-) -> Sequence[Any]:
+) -> Any:
     if input_path is None:
         calling_file_path = Path(inspect.stack()[-1].filename)
         calling_file_name = calling_file_path.stem
