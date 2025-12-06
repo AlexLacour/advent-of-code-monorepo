@@ -2,12 +2,22 @@
 
 import inspect
 from pathlib import Path
-from typing import Callable, Literal, Optional, Protocol, Sequence, Any, Type, TypeVar, overload
+from typing import (
+    Callable,
+    Literal,
+    Optional,
+    Any,
+    TypeVar,
+    overload,
+)
 
 import numpy as np
 
 
 # # type overloads
+T = TypeVar("T")
+
+
 @overload
 def read_input(
     *,
@@ -23,8 +33,6 @@ def read_input(
 ) -> np.ndarray: ...
 
 
-T = TypeVar("T")
-
 @overload
 def read_input(
     *,
@@ -35,11 +43,12 @@ def read_input(
 
 @overload
 def read_input(
-    *,
-    as_type: Callable[..., T],
-    one_line: Literal[True],
-    separator: ...
+    *, as_type: Callable[..., T], one_line: Literal[True], separator: ...
 ) -> T: ...
+
+
+@overload
+def read_input() -> list[str]: ...
 
 
 def read_input(
