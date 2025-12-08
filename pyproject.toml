@@ -10,6 +10,7 @@ packages = [{include = "aoc_utils/**/*.py"}]
 python = "^3.14"
 tqdm = "*"
 numpy = "^2.3.5"
+scikit-learn = "^1.7.2"
 
 [build-system]
 requires = ["poetry-core"]
