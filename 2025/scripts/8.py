@@ -3,6 +3,7 @@ import math
 from aoc_utils import read_input
 import numpy as np
 from sklearn.metrics import pairwise_distances
+import networkx as nx
 
 
 def parse_box(box_str: str) -> tuple[int, ...]:
@@ -23,39 +24,18 @@ pairs = [
         input_junction_boxes[int(associations[2 * i])],
         input_junction_boxes[int(associations[2 * i + 1])],
     )
-    for i in range(len(input_junction_boxes) // 2)
+    for i in range(len(associations) // 2)
 ]
 
+g = nx.Graph()
+g.add_edges_from(pairs[:1000])
+res = sorted(nx.connected_components(g), key=len, reverse=True)[:3]
 
-circuits = defaultdict(list)
-point_to_circuit_id = {}
-circuit_id = 0
+print(math.prod([len(c) for c in res]))
 
-for box1, box2 in pairs[:10]:
-    if box1 not in point_to_circuit_id and box2 not in point_to_circuit_id:
-        circuits[circuit_id].extend([box1, box2])
-        point_to_circuit_id[box1] = circuit_id
-        point_to_circuit_id[box2] = circuit_id
-        circuit_id += 1
+for pair in pairs[1000:]:
+    g.add_edge(*pair)
+    if nx.is_connected(g) and len(g) == len(input_junction_boxes):
+        break
 
-    elif box1 in point_to_circuit_id and box2 not in point_to_circuit_id:
-        circuits[point_to_circuit_id.get(box1)].append(box2)
-        point_to_circuit_id[box2] = point_to_circuit_id.get(box1)
-
-    elif box1 not in point_to_circuit_id and box2 in point_to_circuit_id:
-        circuits[point_to_circuit_id.get(box2)].append(box1)
-        point_to_circuit_id[box1] = point_to_circuit_id.get(box2)
-
-    elif (
-        box1 in point_to_circuit_id
-        and box2 in point_to_circuit_id
-        and point_to_circuit_id[box1] != point_to_circuit_id[box2]
-    ):
-        circuits[point_to_circuit_id.get(box1)].extend(
-            circuits[point_to_circuit_id.get(box2)]
-        )
-        for moved_box in circuits.pop(point_to_circuit_id.get(box2)):
-            point_to_circuit_id[moved_box] = point_to_circuit_id[box1]
-
-first_res = sorted([len(c) for c in circuits.values()], reverse=True)[:3]
-print(first_res)
+print(pair[0][0] * pair[1][0])
