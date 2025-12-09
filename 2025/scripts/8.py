@@ -1,4 +1,3 @@
-from collections import defaultdict
 import math
 from aoc_utils import read_input
 import numpy as np
