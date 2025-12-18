@@ -2,17 +2,9 @@
 
 import inspect
 from pathlib import Path
-from typing import (
-    Callable,
-    Literal,
-    Optional,
-    Any,
-    TypeVar,
-    overload,
-)
+from typing import Any, Callable, Literal, Optional, TypeVar, overload
 
 import numpy as np
-
 
 # # type overloads
 T = TypeVar("T")
@@ -51,6 +43,11 @@ def read_input(
 def read_input() -> list[str]: ...
 
 
+@overload
+def read_input(*, one_line: Literal[True], separator: None) -> str: ...
+
+
+# Function Logic
 def read_input(
     input_path: Optional[str | Path] = None,
     as_type: Optional[Callable] = None,
@@ -84,7 +81,9 @@ def read_input(
         input_data = list(map(as_type, input_data))
 
     if one_line:
-        input_data = input_data[0] if not separator else input_data[0].split(separator)
+        input_data = (
+            input_data[0] if not separator else input_data[0].split(separator)
+        )
 
     if to_numpy:
         input_data = np.asarray(input_data, dtype=np_dtype)
